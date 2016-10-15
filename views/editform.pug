@@ -1,0 +1,25 @@
+//
+   Created by bowenjiang on 2016-10-08.
+
+//
+   Created by bowenjiang on 2016-10-08.
+
+
+script(type='text/javascript').
+    var sid = !{JSON.stringify(id)};
+script(src='./index.js')
+
+
+html
+    head
+        title
+
+    body
+        form(name="edit student", action="http://localhost:3000/students/edit/" method="post")
+            input(type="hidden",name="_id", value=id)
+            input(type="text", name="firstName", placeholder="First Name")
+            input(type="text", name="lastName", placeholder="Last Name")
+            input(type="text", name="age", placeholder="Age")
+            input(type="text", name="email", placeholder="Email")
+            input(type="submit")
+

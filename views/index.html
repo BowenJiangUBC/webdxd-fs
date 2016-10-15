@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Student List</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
+<body ng-app="student">
+<div ng-controller="studentController">
+    <div class="student-list">
+
+        <div ng-repeat="student in students">
+            <h1 ng-click="getStudentDetail(student._id)">{{ student.firstName }}</h1>
+        </div>
+
+        <div class="add-new" ng-click="clearStudent()">addNew</div>
+
+    </div>
+
+    <div ng-show="clickedStudent&&!editing" class="student-detail">
+        <span>ID</span>
+        <p>{{ clickedStudent._id }}</p>
+        <span>First Name</span>
+        <p>{{ clickedStudent.firstName }}</p>
+        <span>Last Name</span>
+        <p>{{ clickedStudent.lastName }}</p>
+        <span>Age</span>
+        <p>{{ clickedStudent.age }}</p>
+        <span>Email</span>
+        <p>{{ clickedStudent.email }}</p>
+        <button ng-click="deleteStudent(clickedStudent._id)">delete</button>
+        <button ng-click="editStudent()">edit</button>
+
+    </div>
+    <div class="student-detail" ng-show="editing||!clickedStudent">
+        <span>First Name</span>
+        <div>
+            {{newStudent}}
+        </div>
+        <div>
+            <input type="text" name="firstName" ng-model="newStudent.firstName">
+        </div>
+
+        <span>Last Name</span>
+        <div>
+            <input  type="text" name="lastName" ng-model="newStudent.lastName">
+        </div>
+
+        <span>Age</span>
+        <div>
+            <input  type="text" name="age" ng-model="newStudent.age">
+        </div>
+
+        <span>Email</span>
+        <div>
+            <input  type="text" name="email" ng-model="newStudent.email">
+        </div>
+        <button class="submit" ng-click="saveStudent(newStudent._id)" id="submit" ng-disabled="">submit</button>
+    </div>
+
+
+
+</div>
+</body>
+</html>

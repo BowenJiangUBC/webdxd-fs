@@ -1,0 +1,15 @@
+//
+   Created by bowenjiang on 2016-10-08.
+
+html
+    head
+        title= student.firstName
+    body
+        h1=student.firstName
+        h2=student.lastName
+        p Email: #{student.email}
+        p Age: #{student.age}
+
+        a(href="/students/edit/" + student._id) edit
+        br
+        a(href="/students/delete/" + student._id) delete
