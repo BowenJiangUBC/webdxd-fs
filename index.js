@@ -7,12 +7,18 @@ var http = require('http').Server(app);
 var Account = require('./models/account');
 var io = require('socket.io')(http);
 
-
 app.set('views', './views');
 app.set('view engine', 'pug');
 mongoose.connect('mongodb://localhost/webdxd');
-app.use(express.static('statics'));
 
+app.use(express.static('statics'));
+var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+app.use(require('express-session')({ secret: 'abc123' }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(require('express-session')({
     secret:'123',
     resave:false,
@@ -47,13 +53,13 @@ app.get('/', function(req,res) {
 // student list page
 app.get('/api/students/', function (req, res) {
     student.find().exec(function (err,doc) {
-       if (err) {
-           console.log(err);
-       }else{
-           //console.log(doc);
-           res.send(doc);
-           //res.render('index', {title:'webdxd Students', students:doc});
-       }
+        if (err) {
+            console.log(err);
+        }else{
+            //console.log(doc);
+            res.send(doc);
+            //res.render('index', {title:'webdxd Students', students:doc});
+        }
     });
 });
 
@@ -117,6 +123,7 @@ app.post('/api/students/edit/:id', function (req, res) {
             age: req.body.age,
             email: req.body.email
         };
+        console.log(updteStudent);
         student.findOneAndUpdate({_id: req.body._id}, updteStudent, {new:true},function (err,doc) {
             if (err) {
                 console.log(err);
@@ -128,7 +135,7 @@ app.post('/api/students/edit/:id', function (req, res) {
 
         //console.log(req.body);
     }
-    );
+);
 
 
 
@@ -146,7 +153,12 @@ app.post('/api/students/new', function (req,res) {
 });
 
 app.get('/chat', function (req,res) {
-   res.render('chat',{});
+    if (req.user) {
+        res.render('chat', {user: req.user.username});
+    } else {
+        res.redirect('/login');
+    }
+
 });
 
 io.on('connection', function(socket){
@@ -160,26 +172,40 @@ io.on('connection', function(socket){
     });
 });
 
-app.get('/login', function (req, res) {
-    res.render('login', {});
+app.post('/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/chat');
+});
+
+app.get('/login', function(req, res) {
+    res.render('login');
+});
+
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/login');
 });
 
 app.get('/signup', function (req, res) {
-    res.render('signup', {});
+    res.render('signup');
 });
 
-app.post('/signup', function (req, res) {
-    Account.register(new Account({username:req.body.username}), req.body.password, function(err,account){
-            if(err){
-                res.render('signup',{message:err});
-            }else{
-                console.log(account);
-                res.redirect('/');
-            }
-        }
-    );
-    console.log(req.body.username);
+app.post('/signup', function(req, res) {
+    Account.register(new Account({username: req.body.username}), req.body.password, function(err, account) {
+        if (err) {
+            res.render('signup', {message: err});
+        } else {
+            passport.authenticate('local')(req, res, function () {
+                req.session.save(function (err) {
+                    if (err) {
+                        res.render('signup', {message: err})
+                    }else{
+                        res.redirect('/chat');
+                    }
 
+                });
+            });
+        }
+    });
 });
 
 

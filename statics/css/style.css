@@ -47,3 +47,9 @@ html, body {
     color: whitesmoke;
 }
 
+.student-detail button.delete-btn {
+    background-color: red;
+    border: 1px solid red;
+}
+
+

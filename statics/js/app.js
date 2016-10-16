@@ -28,22 +28,23 @@ myApp.controller('studentController', function ($http, $scope) {
 
     $scope.isValid=false;
     $scope.createNewStudent = function()  {
-        isValid =typeof $scope.newStudent.firstName === 'string' &&
-                typeof $scope.newStudent.lastName === 'string'&&
-                isNum($scope.newStudent.age)&&
-                validateEmail($scope.newStudent.email);
-        console.log(isValid);
+        // isValid =typeof $scope.newStudent.firstName === 'string' &&
+        //         typeof $scope.newStudent.lastName === 'string'&&
+        //         isNum($scope.newStudent.age)&&
+        //         validateEmail($scope.newStudent.email);
+        // console.log(isValid);
 
-        if(isValid){
-            $http.post(host+'students/new', $scope.newStudent).success( function (res) {
-                console.log(res);
-                $scope.students.push(res);
-                $scope.newStudent={};
-            });
-        } else{
-            //document.getElementById("Button").disabled = true;
-            alert("Check your input stupid fuck!");
-        }
+        // if(isValid){
+        //
+        // } else{
+        //     //document.getElementById("Button").disabled = true;
+        //     alert("Check your input stupid fuck!");
+        // }
+        $http.post(host+'students/new', $scope.newStudent).success( function (res) {
+            console.log(res);
+            $scope.students.push(res);
+            $scope.newStudent={};
+        });
 
     };
     $scope.clearStudent = function () {
