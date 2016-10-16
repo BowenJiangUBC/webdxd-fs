@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var app = express();
+var cors = require('cors');
 var mongoose = require('mongoose');
 var http = require('http').Server(app);
 var Account = require('./models/account');
@@ -10,6 +11,7 @@ var io = require('socket.io')(http);
 app.set('views', './views');
 app.set('view engine', 'pug');
 mongoose.connect('mongodb://localhost/webdxd');
+app.use(cors());
 
 app.use(express.static('statics'));
 var LocalStrategy = require('passport-local').Strategy;
