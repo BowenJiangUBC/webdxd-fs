@@ -18,5 +18,8 @@
     "passport-local-mongoose": "^4.0.0",
     "pug": "^2.0.0-beta6",
     "socket.io": "^1.5.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
   }
 }

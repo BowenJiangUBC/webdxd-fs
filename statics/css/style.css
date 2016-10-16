@@ -1,55 +1,38 @@
 html, body {
-    background-color: #f0f0f0;
-    font-size: 16px;
-    font-family: Helvetica, Arial, sans-serif;
-    margin: 0;
-}
+  background-color: #f0f0f0;
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0; }
 
 .student-list {
-    display: inline-block;
-    width: 20%;
-    vertical-align: top;
-
-}
-
-.student-list > div {
-    background-color: #e0e0e0;
-    cursor: pointer;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.student-list > div:hover {
-    background-color: #fff;
-}
-
-.student-list h1 {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top; }
+  .student-list .add-new {
+    background-color: darkturquoise;
+    color: whitesmoke; }
+  .student-list h1 {
     font-size: 1rem;
     color: #333;
     font-weight: 400;
     padding: 10px;
-    margin: 0;
-}
-
-.student-detail {
+    margin: 0; }
+  .student-list > div {
+    background-color: #e0e0e0;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0; }
+    .student-list > div:hover {
+      background-color: #fff; }
+  .student-list .student-detail {
     display: inline-block;
     background-color: #e0e0e0;
     padding: 20px;
-    width: 70%;
-}
+    width: 70%; }
+    .student-list .student-detail span {
+      color: #999;
+      font-size: .8rem; }
+    .student-list .student-detail button.delete-btn {
+      background-color: red;
+      border: 1px solid red; }
 
-.student-detail span {
-    color: #999;
-    font-size: .8rem;
-}
-
-.student-list .add-new{
-    background-color: darkturquoise;
-    color: whitesmoke;
-}
-
-.student-detail button.delete-btn {
-    background-color: red;
-    border: 1px solid red;
-}
-
-
+/*# sourceMappingURL=style.css.map */
