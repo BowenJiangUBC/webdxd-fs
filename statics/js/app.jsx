@@ -1,4 +1,4 @@
-var host = 'http://localhost:3000/api/';
+var host = '/api/';
 
 
 var Student = React.createClass({
